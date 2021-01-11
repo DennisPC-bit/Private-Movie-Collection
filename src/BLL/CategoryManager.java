@@ -74,8 +74,8 @@ public class CategoryManager {
      * @param name the category name
      * @throws Exception if something went wrong
      */
-    public int createCategory(String name) throws Exception {
-        return categoryDAO.createCategory(name);
+    public void createCategory(String name) throws Exception {
+        categoryDAO.createCategory(name);
     }
 
     /**
