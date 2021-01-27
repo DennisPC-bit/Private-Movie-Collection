@@ -250,7 +250,7 @@ public class MovieDBDAO implements MovieDAOInterface {
                 for (int i = 0; i < temp.size(); i++) {
                     var movie = temp.get(i);
                     var lastView = movie.getLastView();
-                    //if (lastView != null) {
+                    if (lastView != null) {
                         var lastViewDate = dateFormatter.parse(lastView);
                         var lastViewYear = lastViewDate.getYear();
                         var rating = Double.parseDouble(movie.getRating());
@@ -259,8 +259,7 @@ public class MovieDBDAO implements MovieDAOInterface {
                             System.out.println(String.format("Movie: %s is over two years old!", movie.getTitle()));
                         }
                     }
-                //}
-
+                }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
