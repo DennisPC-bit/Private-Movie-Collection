@@ -10,6 +10,8 @@ import java.io.RandomAccessFile;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,18 +30,6 @@ public class MovieDBDAO implements MovieDAOInterface {
     @Override
     public void setMovieManager(MovieManager movieManager) {
         this.movieManager = movieManager;
-    }
-
-    /**
-     * Tries to connect to the database.
-     *
-     * @throws SQLException if it cant get connection to the database or something went wrong.
-     */
-    public MovieDBDAO() throws SQLException {
-        database = DbConnectionHandler.getInstance();
-        if (database.getConnection().isClosed()) {
-            throw new SQLException("no connection to database");
-        }
     }
 
     /**
@@ -244,6 +234,7 @@ public class MovieDBDAO implements MovieDAOInterface {
 
     /**
      * Gets the old movies
+     *
      * @return the old movies
      */
     public List<Movie> getOldMovies() {
@@ -259,14 +250,17 @@ public class MovieDBDAO implements MovieDAOInterface {
                 for (int i = 0; i < temp.size(); i++) {
                     var movie = temp.get(i);
                     var lastView = movie.getLastView();
-                    var lastViewDate = dateFormatter.parse(lastView);
-                    var lastViewYear = lastViewDate.getYear();
-                    var rating = Double.parseDouble(movie.getRating());
-                    if (rating < 6 && lastViewYear + 2 < currentYear) {
-                        if (!resultMovies.contains(movie)) resultMovies.add(movie);
-                        System.out.println(String.format("Movie: %s is over two years old!", movie.getTitle()));
+                    //if (lastView != null) {
+                        var lastViewDate = dateFormatter.parse(lastView);
+                        var lastViewYear = lastViewDate.getYear();
+                        var rating = Double.parseDouble(movie.getRating());
+                        if (rating < 6 && lastViewYear + 2 < currentYear) {
+                            if (!resultMovies.contains(movie)) resultMovies.add(movie);
+                            System.out.println(String.format("Movie: %s is over two years old!", movie.getTitle()));
+                        }
                     }
-                }
+                //}
+
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

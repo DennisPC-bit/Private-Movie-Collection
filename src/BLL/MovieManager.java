@@ -18,14 +18,14 @@ public class MovieManager {
         try {
             movieDAO = new MovieDBDAO();
         } catch (Exception e) {
-            movieDAO = new MovieLocalDAO();
+            e.printStackTrace();
         }
     }
 
     /**
      * Makes it use the local class.
      */
-    public void goLocal() {
+    public static void goLocal() {
         movieDAO = new MovieLocalDAO();
     }
 

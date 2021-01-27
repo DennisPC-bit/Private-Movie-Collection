@@ -6,6 +6,7 @@ import BLL.CategoryManager;
 import DAL.DAO.CategoryDAOInterface;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,10 @@ public class CategoryLocalDAO implements CategoryDAOInterface {
     @Override
     public void setCategoryManager(CategoryManager categoryManager) {
         this.categoryManager = categoryManager;
+    }
+
+    public CategoryLocalDAO(){
+        System.out.printf("%-30s%s%n",LocalDateTime.now()," Launching local");
     }
 
     /**

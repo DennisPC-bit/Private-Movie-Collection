@@ -8,6 +8,7 @@ import DAL.DAO.FILE.CategoryLocalDAO;
 import DAL.DAO.CategoryDAOInterface;
 import GUI.CONTROLLER.MainViewController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class CategoryManager {
@@ -19,9 +20,13 @@ public class CategoryManager {
     //initializes the interface, if no connection to the database, it will try to use the local option.
     static {
         try {
+            System.out.printf("%-30s%s%n", LocalDateTime.now(), " Trying DB");
             categoryDAO = new CategoryDBDAO();
+            System.out.printf("%-30s%s%n", LocalDateTime.now(), " DB success");
         } catch (Exception e) {
+            System.out.printf("%-30s%s%n", LocalDateTime.now(), " DB failed");
             categoryDAO = new CategoryLocalDAO();
+            MovieManager.goLocal();
             inputAlert.showAlert("Couldn't establish connection to the database. Your changes will be done locally.");
         }
     }
